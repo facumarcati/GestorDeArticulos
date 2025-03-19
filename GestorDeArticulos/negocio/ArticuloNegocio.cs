@@ -7,7 +7,7 @@ using dominio;
 
 namespace negocio
 {
-    class ArticuloNegocio
+    public class ArticuloNegocio
     {
         public List<Articulo> listar()
         {
@@ -34,7 +34,7 @@ namespace negocio
 					aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
 					aux.Categoria.Descripcion = (string)datos.Lector["Categoria"];
 					aux.UrlImagen = (string)datos.Lector["ImagenUrl"];
-					aux.Precio = (float)datos.Lector["Precio"];
+					aux.Precio = (decimal)datos.Lector["Precio"];
 
 					lista.Add(aux);
 				}
@@ -51,5 +51,53 @@ namespace negocio
 				datos.cerrarConexion();
 			}
         }
+
+		public void agregarArticulo(Articulo nuevo)
+		{
+			AccesoDatos datos = new AccesoDatos();
+
+			try
+			{
+				string consulta = "insert into ARTICULOS (Codigo,Nombre,Descripcion,IdMarca,IdCategoria,ImagenUrl,Precio) values (@Codigo,@Nombre,@Descripcion,@IdMarca,@IdCategoria,@ImagenUrl,Precio)";
+				datos.setearConsulta(consulta);
+				datos.setearParametros("@Codigo", nuevo.Codigo);
+				datos.setearParametros("@Nombre", nuevo.Nombre);
+				datos.setearParametros("@Descripcion", nuevo.Descripcion);
+				datos.setearParametros("@IdMarca", nuevo.Marca.Id);
+				datos.setearParametros("@IdCategoria", nuevo.Categoria.Id);
+				datos.setearParametros("@ImagenUrl", nuevo.UrlImagen);
+				datos.setearParametros("@Precio", nuevo.Precio);
+				datos.ejecutarAccion();
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+			finally
+			{
+				datos.cerrarConexion();
+			}
+		}
+
+		public void eliminarArticulo(int id)
+		{
+			AccesoDatos datos = new AccesoDatos();
+
+			try
+			{
+				string consulta = "delete from ARTICULOS where Id = @Id";
+				datos.setearConsulta(consulta);
+				datos.setearParametros("@Id", id);
+				datos.ejecutarAccion();
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+			finally
+			{
+				datos.cerrarConexion();
+			}
+		}
     }
 }
