@@ -52,7 +52,7 @@ namespace negocio
 			}
         }
 
-		public void agregarArticulo(Articulo nuevo)
+		public bool agregarArticulo(Articulo nuevo)
 		{
 			AccesoDatos datos = new AccesoDatos();
 
@@ -68,10 +68,12 @@ namespace negocio
 				datos.setearParametros("@ImagenUrl", nuevo.UrlImagen);
 				datos.setearParametros("@Precio", nuevo.Precio);
 				datos.ejecutarAccion();
+
+				return true;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				throw ex;
+				return false;
 			}
 			finally
 			{
