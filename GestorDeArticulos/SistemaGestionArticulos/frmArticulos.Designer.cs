@@ -1,4 +1,4 @@
-﻿namespace SistemaGestionArticulos
+﻿namespace presentacion
 {
     partial class frmArticulos
     {

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using dominio;
 using negocio;
 
-namespace SistemaGestionArticulos
+namespace presentacion
 {
     public partial class frmAltaArticulo : Form
     {
