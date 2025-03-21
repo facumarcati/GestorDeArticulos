@@ -178,6 +178,7 @@
             this.pbImagenAlta.Location = new System.Drawing.Point(495, 62);
             this.pbImagenAlta.Name = "pbImagenAlta";
             this.pbImagenAlta.Size = new System.Drawing.Size(427, 375);
+            this.pbImagenAlta.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbImagenAlta.TabIndex = 14;
             this.pbImagenAlta.TabStop = false;
             // 

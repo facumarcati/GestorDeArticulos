@@ -19,11 +19,10 @@ namespace SistemaGestionArticulos
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        public void cargar()
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
             List<Articulo> listaArticulos = new List<Articulo>();
-            Articulo articulo = new Articulo();
 
             try
             {
@@ -33,6 +32,19 @@ namespace SistemaGestionArticulos
                 dgvArticulos.Columns["UrlImagen"].Visible = false;
                 dgvArticulos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
                 pbArticulos.Load(listaArticulos[0].UrlImagen);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                cargar();
             }
             catch (Exception ex)
             {
@@ -67,6 +79,38 @@ namespace SistemaGestionArticulos
         {
             frmAltaArticulo alta = new frmAltaArticulo();
             alta.ShowDialog();
+            cargar();
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            Articulo seleccionado;
+            seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+
+            frmAltaArticulo modificar = new frmAltaArticulo(seleccionado);
+            modificar.ShowDialog();
+            cargar();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            Articulo seleccionado;
+            ArticuloNegocio negocio = new ArticuloNegocio();
+
+            try
+            {
+                DialogResult response =  MessageBox.Show("Seguro que queres eliminar este articulo?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (response == DialogResult.Yes)
+                {
+                    seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                    negocio.eliminarArticulo(seleccionado.Id);
+                    cargar();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

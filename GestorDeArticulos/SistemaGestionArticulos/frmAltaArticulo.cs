@@ -14,9 +14,18 @@ namespace SistemaGestionArticulos
 {
     public partial class frmAltaArticulo : Form
     {
+        private Articulo articulo = null;
         public frmAltaArticulo()
         {
             InitializeComponent();
+            Text = "Alta Articulo";
+        }
+        public frmAltaArticulo(Articulo articulo)
+        {
+            InitializeComponent();
+            this.articulo = articulo;
+            Text = "Modificar Articulo";
+            btnAgregar.Text = "Modificar";
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -27,46 +36,78 @@ namespace SistemaGestionArticulos
         private void frmAltaArticulo_Load(object sender, EventArgs e)
         {
             MarcaNegocio negocioMarca = new MarcaNegocio();
-            List<Marca> listaMarca = new List<Marca>();
             CategoriaNegocio negocioCategoria = new CategoriaNegocio();
-            List<Categoria> listaCategoria = new List<Categoria>();
 
-            listaMarca = negocioMarca.listar();
-            listaCategoria = negocioCategoria.listar();
-
-            foreach (var marca in listaMarca)
+            try
             {
-                cbxMarca.Items.Add(marca);
-            }
-            foreach (var categoria in listaCategoria)
-            {
-                cbxCategoria.Items.Add(categoria);
-            }
+                cbxMarca.DataSource = negocioMarca.listar();
+                cbxMarca.ValueMember = "Id";
+                cbxMarca.DisplayMember = "Descripcion";
+                cbxCategoria.DataSource = negocioCategoria.listar();
+                cbxCategoria.ValueMember = "Id";
+                cbxCategoria.DisplayMember = "Descripcion";
 
-            cbxMarca.SelectedItem = listaMarca[0];
-            cbxCategoria.SelectedItem = listaCategoria[0];
+                if(articulo != null)
+                {
+                    txtCodigo.Text = articulo.Codigo;
+                    txtNombre.Text = articulo.Nombre;
+                    txtDescripcion.Text = articulo.Descripcion;
+                    txtUrlImagen.Text = articulo.UrlImagen;
+                    cargarImagen(articulo.UrlImagen);
+                    txtPrecio.Text = articulo.Precio.ToString();
+                    cbxMarca.SelectedValue = articulo.Marca.Id;
+                    cbxCategoria.SelectedValue = articulo.Categoria.Id;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            Articulo nuevo = new Articulo();
             ArticuloNegocio negocio = new ArticuloNegocio();
-
-            // AGREGAR PARA QUE CAPTURE LA MARCA Y LA CATEGORIA
 
             try
             {
-                nuevo.Codigo = txtCodigo.Text;
-                nuevo.Nombre = txtNombre.Text;
-                nuevo.Descripcion = txtDescripcion.Text;
-                nuevo.UrlImagen = txtUrlImagen.Text;
-                nuevo.Precio = decimal.Parse(txtPrecio.Text);
-                //nuevo.Marca
-                //nuevo.Categoria
-
-                if (negocio.agregarArticulo(nuevo))
+                if(articulo == null)
                 {
-                    MessageBox.Show("Articulo agregado con exito");
+                    articulo = new Articulo();
+                }
+
+                articulo.Codigo = txtCodigo.Text;
+                articulo.Nombre = txtNombre.Text;
+                articulo.Descripcion = txtDescripcion.Text;
+                articulo.UrlImagen = txtUrlImagen.Text;
+                articulo.Precio = decimal.Parse(txtPrecio.Text);
+                articulo.Marca = (Marca)cbxMarca.SelectedItem;
+                articulo.Categoria = (Categoria)cbxCategoria.SelectedItem;
+
+
+                if (articulo.Id == 0)
+                {
+                    if (negocio.agregarArticulo(articulo))
+                    {
+                        MessageBox.Show("Articulo agregado con exito");
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo agregar el Articulo");
+                    }
+                }
+                else
+                {
+                    if (negocio.modificarArticulo(articulo))
+                    {
+                        MessageBox.Show("Articulo modificado con exito");
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo modificar el Articulo");
+                    }
                 }
 
                 Close();
