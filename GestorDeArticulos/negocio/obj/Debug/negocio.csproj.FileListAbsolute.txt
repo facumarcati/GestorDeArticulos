@@ -1,9 +1,0 @@
-C:\Users\Usuario\Desktop\GestorDeArticulos-main\GestorDeArticulos\negocio\bin\Debug\negocio.dll
-C:\Users\Usuario\Desktop\GestorDeArticulos-main\GestorDeArticulos\negocio\bin\Debug\negocio.pdb
-C:\Users\Usuario\Desktop\GestorDeArticulos-main\GestorDeArticulos\negocio\bin\Debug\dominio.dll
-C:\Users\Usuario\Desktop\GestorDeArticulos-main\GestorDeArticulos\negocio\bin\Debug\dominio.pdb
-C:\Users\Usuario\Desktop\GestorDeArticulos-main\GestorDeArticulos\negocio\obj\Debug\negocio.csproj.AssemblyReference.cache
-C:\Users\Usuario\Desktop\GestorDeArticulos-main\GestorDeArticulos\negocio\obj\Debug\negocio.csproj.CoreCompileInputs.cache
-C:\Users\Usuario\Desktop\GestorDeArticulos-main\GestorDeArticulos\negocio\obj\Debug\negocio.csproj.Up2Date
-C:\Users\Usuario\Desktop\GestorDeArticulos-main\GestorDeArticulos\negocio\obj\Debug\negocio.dll
-C:\Users\Usuario\Desktop\GestorDeArticulos-main\GestorDeArticulos\negocio\obj\Debug\negocio.pdb
