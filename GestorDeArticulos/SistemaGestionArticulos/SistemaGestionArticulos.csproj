@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1BB620D4-3BB2-424C-8041-D03C5D2C2E80}</ProjectGuid>
+    <ProjectGuid>{1593A9FB-2696-4FD5-9D5E-83D7743C2D90}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>winform_app</RootNamespace>
-    <AssemblyName>winform-app</AssemblyName>
+    <RootNamespace>SistemaGestionArticulos</RootNamespace>
+    <AssemblyName>SistemaGestionArticulos</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -34,7 +34,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -47,34 +46,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmAgregarDisco.cs">
+    <Compile Include="frmAltaArticulo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAgregarDisco.Designer.cs">
-      <DependentUpon>frmAgregarDisco.cs</DependentUpon>
+    <Compile Include="frmAltaArticulo.Designer.cs">
+      <DependentUpon>frmAltaArticulo.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmAgregarEstiloTipoEdicion.cs">
+    <Compile Include="frmArticulos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAgregarEstiloTipoEdicion.Designer.cs">
-      <DependentUpon>frmAgregarEstiloTipoEdicion.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmDiscos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmDiscos.Designer.cs">
-      <DependentUpon>frmDiscos.cs</DependentUpon>
+    <Compile Include="frmArticulos.Designer.cs">
+      <DependentUpon>frmArticulos.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="frmAgregarDisco.resx">
-      <DependentUpon>frmAgregarDisco.cs</DependentUpon>
+    <EmbeddedResource Include="frmAltaArticulo.resx">
+      <DependentUpon>frmAltaArticulo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmAgregarEstiloTipoEdicion.resx">
-      <DependentUpon>frmAgregarEstiloTipoEdicion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmDiscos.resx">
-      <DependentUpon>frmDiscos.cs</DependentUpon>
+    <EmbeddedResource Include="frmArticulos.resx">
+      <DependentUpon>frmArticulos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -100,11 +90,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\dominio\dominio.csproj">
-      <Project>{0c7730d3-9a08-48a5-8e2d-2f0546f2cb34}</Project>
+      <Project>{50dba6e0-e5ba-4276-a04b-5a477c5090e8}</Project>
       <Name>dominio</Name>
     </ProjectReference>
     <ProjectReference Include="..\negocio\negocio.csproj">
-      <Project>{e095b285-8de0-4e97-9bb9-24fd7dd8780a}</Project>
+      <Project>{94895e1b-dc3b-4b9c-a0d1-6cfc30e4fd25}</Project>
       <Name>negocio</Name>
     </ProjectReference>
   </ItemGroup>

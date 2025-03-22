@@ -20,7 +20,7 @@ namespace negocio
 
         public AccesoDatos()
         {
-            conexion = new SqlConnection("server=.\\SQLEXPRESS; database=DISCOS_DB; integrated security=true");
+            conexion = new SqlConnection("server=.\\SQLEXPRESS; database=CATALOGO_DB; integrated security=true");
             comando = new SqlCommand();
         }
 
@@ -55,7 +55,6 @@ namespace negocio
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
@@ -67,7 +66,7 @@ namespace negocio
 
         public void cerrarConexion()
         {
-            if(lector != null)
+            if (lector != null)
             {
                 lector.Close();
             }
