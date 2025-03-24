@@ -34,6 +34,13 @@
             this.btnEliminar = new System.Windows.Forms.Button();
             this.pbArticulos = new System.Windows.Forms.PictureBox();
             this.btnMostrar = new System.Windows.Forms.Button();
+            this.cbxMarca = new System.Windows.Forms.ComboBox();
+            this.cbxCategoria = new System.Windows.Forms.ComboBox();
+            this.lblMarca = new System.Windows.Forms.Label();
+            this.btnFiltrar = new System.Windows.Forms.Button();
+            this.lblCategoria = new System.Windows.Forms.Label();
+            this.txtFiltro = new System.Windows.Forms.TextBox();
+            this.lblFiltroNombre = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbArticulos)).BeginInit();
             this.SuspendLayout();
@@ -42,7 +49,7 @@
             // 
             this.dgvArticulos.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dgvArticulos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvArticulos.Location = new System.Drawing.Point(12, 53);
+            this.dgvArticulos.Location = new System.Drawing.Point(317, 83);
             this.dgvArticulos.Name = "dgvArticulos";
             this.dgvArticulos.RowHeadersWidth = 62;
             this.dgvArticulos.Size = new System.Drawing.Size(634, 232);
@@ -52,9 +59,8 @@
             // btnAgregar
             // 
             this.btnAgregar.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregar.Location = new System.Drawing.Point(12, 300);
+            this.btnAgregar.Location = new System.Drawing.Point(478, 335);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(90, 46);
             this.btnAgregar.TabIndex = 1;
@@ -65,9 +71,8 @@
             // btnModificar
             // 
             this.btnModificar.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.btnModificar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnModificar.Location = new System.Drawing.Point(118, 300);
+            this.btnModificar.Location = new System.Drawing.Point(584, 335);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(90, 46);
             this.btnModificar.TabIndex = 2;
@@ -78,9 +83,8 @@
             // btnEliminar
             // 
             this.btnEliminar.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminar.Location = new System.Drawing.Point(225, 300);
+            this.btnEliminar.Location = new System.Drawing.Point(691, 335);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(90, 46);
             this.btnEliminar.TabIndex = 3;
@@ -92,7 +96,7 @@
             // 
             this.pbArticulos.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.pbArticulos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbArticulos.Location = new System.Drawing.Point(662, 26);
+            this.pbArticulos.Location = new System.Drawing.Point(12, 33);
             this.pbArticulos.Name = "pbArticulos";
             this.pbArticulos.Size = new System.Drawing.Size(289, 320);
             this.pbArticulos.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -102,9 +106,8 @@
             // btnMostrar
             // 
             this.btnMostrar.BackColor = System.Drawing.Color.AntiqueWhite;
-            this.btnMostrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMostrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMostrar.Location = new System.Drawing.Point(556, 300);
+            this.btnMostrar.Location = new System.Drawing.Point(110, 371);
             this.btnMostrar.Name = "btnMostrar";
             this.btnMostrar.Size = new System.Drawing.Size(90, 46);
             this.btnMostrar.TabIndex = 5;
@@ -112,12 +115,82 @@
             this.btnMostrar.UseVisualStyleBackColor = false;
             this.btnMostrar.Click += new System.EventHandler(this.btnMostrar_Click);
             // 
+            // cbxMarca
+            // 
+            this.cbxMarca.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxMarca.FormattingEnabled = true;
+            this.cbxMarca.Location = new System.Drawing.Point(534, 34);
+            this.cbxMarca.Name = "cbxMarca";
+            this.cbxMarca.Size = new System.Drawing.Size(105, 21);
+            this.cbxMarca.TabIndex = 6;
+            // 
+            // cbxCategoria
+            // 
+            this.cbxCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxCategoria.FormattingEnabled = true;
+            this.cbxCategoria.Location = new System.Drawing.Point(371, 33);
+            this.cbxCategoria.Name = "cbxCategoria";
+            this.cbxCategoria.Size = new System.Drawing.Size(106, 21);
+            this.cbxCategoria.TabIndex = 7;
+            // 
+            // lblMarca
+            // 
+            this.lblMarca.AutoSize = true;
+            this.lblMarca.Location = new System.Drawing.Point(491, 38);
+            this.lblMarca.Name = "lblMarca";
+            this.lblMarca.Size = new System.Drawing.Size(37, 13);
+            this.lblMarca.TabIndex = 8;
+            this.lblMarca.Text = "Marca";
+            // 
+            // btnFiltrar
+            // 
+            this.btnFiltrar.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.btnFiltrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFiltrar.Location = new System.Drawing.Point(654, 30);
+            this.btnFiltrar.Name = "btnFiltrar";
+            this.btnFiltrar.Size = new System.Drawing.Size(94, 33);
+            this.btnFiltrar.TabIndex = 9;
+            this.btnFiltrar.Text = "Filtrar";
+            this.btnFiltrar.UseVisualStyleBackColor = false;
+            // 
+            // lblCategoria
+            // 
+            this.lblCategoria.AutoSize = true;
+            this.lblCategoria.Location = new System.Drawing.Point(316, 37);
+            this.lblCategoria.Name = "lblCategoria";
+            this.lblCategoria.Size = new System.Drawing.Size(52, 13);
+            this.lblCategoria.TabIndex = 10;
+            this.lblCategoria.Text = "Categoria";
+            // 
+            // txtFiltro
+            // 
+            this.txtFiltro.Location = new System.Drawing.Point(802, 34);
+            this.txtFiltro.Name = "txtFiltro";
+            this.txtFiltro.Size = new System.Drawing.Size(138, 20);
+            this.txtFiltro.TabIndex = 11;
+            // 
+            // lblFiltroNombre
+            // 
+            this.lblFiltroNombre.AutoSize = true;
+            this.lblFiltroNombre.Location = new System.Drawing.Point(799, 18);
+            this.lblFiltroNombre.Name = "lblFiltroNombre";
+            this.lblFiltroNombre.Size = new System.Drawing.Size(69, 13);
+            this.lblFiltroNombre.TabIndex = 12;
+            this.lblFiltroNombre.Text = "Filtro Nombre";
+            // 
             // frmArticulos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Moccasin;
-            this.ClientSize = new System.Drawing.Size(963, 369);
+            this.ClientSize = new System.Drawing.Size(963, 430);
+            this.Controls.Add(this.lblFiltroNombre);
+            this.Controls.Add(this.txtFiltro);
+            this.Controls.Add(this.lblCategoria);
+            this.Controls.Add(this.btnFiltrar);
+            this.Controls.Add(this.lblMarca);
+            this.Controls.Add(this.cbxCategoria);
+            this.Controls.Add(this.cbxMarca);
             this.Controls.Add(this.btnMostrar);
             this.Controls.Add(this.pbArticulos);
             this.Controls.Add(this.btnEliminar);
@@ -133,6 +206,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbArticulos)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -144,6 +218,13 @@
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.PictureBox pbArticulos;
         private System.Windows.Forms.Button btnMostrar;
+        private System.Windows.Forms.ComboBox cbxMarca;
+        private System.Windows.Forms.ComboBox cbxCategoria;
+        private System.Windows.Forms.Label lblMarca;
+        private System.Windows.Forms.Button btnFiltrar;
+        private System.Windows.Forms.Label lblCategoria;
+        private System.Windows.Forms.TextBox txtFiltro;
+        private System.Windows.Forms.Label lblFiltroNombre;
     }
 }
 

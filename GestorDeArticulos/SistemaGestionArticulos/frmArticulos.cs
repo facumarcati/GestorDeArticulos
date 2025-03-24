@@ -42,8 +42,13 @@ namespace presentacion
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            MarcaNegocio negocioMarca = new MarcaNegocio();
+            CategoriaNegocio negocioCategoria = new CategoriaNegocio();
+
             try
             {
+                cbxMarca.DataSource = negocioMarca.listar();
+                cbxCategoria.DataSource = negocioCategoria.listar();
                 cargar();
             }
             catch (Exception ex)
