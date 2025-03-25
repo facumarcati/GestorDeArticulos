@@ -14,6 +14,7 @@ namespace presentacion
 {
     public partial class frmArticulos: Form
     {
+        private List<Articulo> listaArticulos;
         public frmArticulos()
         {
             InitializeComponent();
@@ -28,22 +29,29 @@ namespace presentacion
             {
                 listaArticulos = negocio.listar();
                 dgvArticulos.DataSource = listaArticulos;
-                dgvArticulos.Columns["Precio"].DefaultCellStyle.Format = "N2";
-                dgvArticulos.Columns["UrlImagen"].Visible = false;
-                dgvArticulos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+                modificarColumnas();
                 pbArticulos.Load(listaArticulos[0].UrlImagen);
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            MarcaNegocio negocioMarca = new MarcaNegocio();
+            CategoriaNegocio negocioCategoria = new CategoriaNegocio();
+
             try
             {
+                cbxMarca.DataSource = negocioMarca.listar();
+                cbxCategoria.DataSource = negocioCategoria.listar();
+
+                cbxCampo.Items.Add("Codigo");
+                cbxCampo.Items.Add("Nombre");
+                cbxCampo.Items.Add("Precio");
+
                 cargar();
             }
             catch (Exception ex)
@@ -111,6 +119,107 @@ namespace presentacion
             {
                 throw ex;
             }
+        }
+
+        private void btnMostrar_Click(object sender, EventArgs e)
+        {
+            Articulo seleccionado;
+
+            try
+            {
+                seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                frmAltaArticulo mostrar = new frmAltaArticulo(seleccionado, true);
+                mostrar.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void cbxCampo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cbxCampo.SelectedItem.ToString() == "Precio")
+            {
+                cbxCriterio.Items.Clear();
+                cbxCriterio.Items.Add("Mayor a");
+                cbxCriterio.Items.Add("Menor a");
+                cbxCriterio.Items.Add("Igual a");
+            }
+            else
+            {
+                cbxCriterio.Items.Clear();
+                cbxCriterio.Items.Add("Comienza con");
+                cbxCriterio.Items.Add("Termina con");
+                cbxCriterio.Items.Add("Contiene");
+            }
+        }
+
+        private void btnLimpiarFIltro_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                txtFiltro.Text = "";
+                cargar();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+
+            try
+            {
+                txtFiltro.Text = "";
+                string categoria = cbxCategoria.SelectedItem.ToString();
+                string marca = cbxMarca.SelectedItem.ToString();
+
+                listaArticulos = negocio.filtrar(categoria, marca);
+                dgvArticulos.DataSource = listaArticulos;
+                modificarColumnas();
+                pbArticulos.Load(listaArticulos[0].UrlImagen);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void modificarColumnas()
+        {
+            dgvArticulos.Columns["Precio"].DefaultCellStyle.Format = "N2";
+            dgvArticulos.Columns["UrlImagen"].Visible = false;
+            dgvArticulos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+        }
+
+        public void controladorDGV(List<Articulo> listaArticulos)
+        {
+            dgvArticulos.DataSource = null;
+            dgvArticulos.DataSource = listaArticulos;
+        }
+
+        private void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
+            List<Articulo> listaFiltrada;
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            string filtro = txtFiltro.Text;
+            controladorDGV(listaArticulos = negocio.listar());
+
+            if (filtro != "")
+            {
+                listaFiltrada = listaArticulos.FindAll(x => x.Nombre.ToUpper().Contains(filtro.ToUpper()));
+            }
+            else
+            {
+                listaFiltrada = listaArticulos;
+            }
+
+            controladorDGV(listaFiltrada);
+            modificarColumnas();
         }
     }
 }

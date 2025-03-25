@@ -36,9 +36,9 @@ namespace negocio
                     if (!(datos.Lector["ImagenUrl"] is DBNull)){
 						aux.UrlImagen = (string)datos.Lector["ImagenUrl"];
 					}
-					aux.Precio = (decimal)datos.Lector["Precio"];
+                    aux.Precio = Math.Round((decimal)datos.Lector["Precio"], 2);
 
-					lista.Add(aux);
+                    lista.Add(aux);
 				}
 
 				return lista;
@@ -127,6 +127,53 @@ namespace negocio
 			catch (Exception)
 			{
 				return false;
+			}
+			finally
+			{
+				datos.cerrarConexion();
+			}
+		}
+
+		public List<Articulo> filtrar(string categoria, string marca)
+		{
+			AccesoDatos datos = new AccesoDatos();
+			List<Articulo> listaFiltrada = new List<Articulo>();
+
+			try
+			{
+				string consulta = "select a.Id, Codigo, Nombre, a.Descripcion, IdMarca, M.Descripcion as Marca, IdCategoria, c.Descripcion as Categoria, ImagenUrl, Precio from ARTICULOS A inner join CATEGORIAS C on C.Id = a.IdCategoria inner join MARCAS M on M.Id = a.IdMarca where m.Descripcion like @Marca and c.Descripcion like @Categoria";
+				datos.setearConsulta(consulta);
+				datos.setearParametros("@Marca", marca);
+				datos.setearParametros("@Categoria", categoria);
+				datos.ejecutarLectura();
+
+				while (datos.Lector.Read())
+				{
+					Articulo aux = new Articulo();
+                    aux.Id = (int)datos.Lector["Id"];
+                    aux.Codigo = (string)datos.Lector["Codigo"];
+                    aux.Nombre = (string)datos.Lector["Nombre"];
+                    aux.Descripcion = (string)datos.Lector["Descripcion"];
+                    aux.Marca = new Marca();
+                    aux.Marca.Id = (int)datos.Lector["IdMarca"];
+                    aux.Marca.Descripcion = (string)datos.Lector["Marca"];
+                    aux.Categoria = new Categoria();
+                    aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
+                    aux.Categoria.Descripcion = (string)datos.Lector["Categoria"];
+                    if (!(datos.Lector["ImagenUrl"] is DBNull))
+                    {
+                        aux.UrlImagen = (string)datos.Lector["ImagenUrl"];
+                    }
+                    aux.Precio = Math.Round((decimal)datos.Lector["Precio"], 2);
+
+					listaFiltrada.Add(aux);
+                }
+
+				return listaFiltrada;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
 			}
 			finally
 			{
