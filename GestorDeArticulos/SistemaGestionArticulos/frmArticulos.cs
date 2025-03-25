@@ -47,11 +47,14 @@ namespace presentacion
             {
                 cbxMarca.DataSource = negocioMarca.listar();
                 cbxCategoria.DataSource = negocioCategoria.listar();
+<<<<<<< HEAD
 
                 cbxCampo.Items.Add("Codigo");
                 cbxCampo.Items.Add("Nombre");
                 cbxCampo.Items.Add("Precio");
 
+=======
+>>>>>>> 9282c1c6f9f30489069c25278cf7e47c72e6b17a
                 cargar();
             }
             catch (Exception ex)
@@ -136,6 +139,7 @@ namespace presentacion
                 throw ex;
             }
         }
+<<<<<<< HEAD
 
         private void cbxCampo_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -221,5 +225,7 @@ namespace presentacion
             controladorDGV(listaFiltrada);
             modificarColumnas();
         }
+=======
+>>>>>>> 9282c1c6f9f30489069c25278cf7e47c72e6b17a
     }
 }
