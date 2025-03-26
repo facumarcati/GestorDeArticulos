@@ -47,14 +47,11 @@ namespace presentacion
             {
                 cbxMarca.DataSource = negocioMarca.listar();
                 cbxCategoria.DataSource = negocioCategoria.listar();
-<<<<<<< HEAD
 
                 cbxCampo.Items.Add("Codigo");
                 cbxCampo.Items.Add("Nombre");
                 cbxCampo.Items.Add("Precio");
 
-=======
->>>>>>> 9282c1c6f9f30489069c25278cf7e47c72e6b17a
                 cargar();
             }
             catch (Exception ex)
@@ -63,14 +60,15 @@ namespace presentacion
             }
         }
 
-        private void cargarImagen()
+        private void cargarImagen(string imagen)
         {
-            Articulo seleccionado;
-
-            if (dgvArticulos.CurrentRow != null)
+            try
             {
-                seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-                pbArticulos.Load(seleccionado.UrlImagen);
+                pbArticulos.Load(imagen);
+            }
+            catch (Exception)
+            {
+                pbArticulos.Load("https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=");
             }
         }
 
@@ -78,11 +76,12 @@ namespace presentacion
         {
             try
             {
-                cargarImagen();
+                Articulo articuloSeleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                cargarImagen(articuloSeleccionado.UrlImagen);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                pbArticulos.Load("https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=");
+                throw ex;
             }
         }
 
@@ -139,7 +138,6 @@ namespace presentacion
                 throw ex;
             }
         }
-<<<<<<< HEAD
 
         private void cbxCampo_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -183,9 +181,14 @@ namespace presentacion
                 string marca = cbxMarca.SelectedItem.ToString();
 
                 listaArticulos = negocio.filtrar(categoria, marca);
+                if (listaArticulos.Count == 0)
+                {
+                    MessageBox.Show("No hay articulos con esa Categoria y Marca");
+                    return;
+                }
                 dgvArticulos.DataSource = listaArticulos;
                 modificarColumnas();
-                pbArticulos.Load(listaArticulos[0].UrlImagen);
+                cargarImagen(listaArticulos[0].UrlImagen);
             }
             catch (Exception ex)
             {
@@ -225,7 +228,72 @@ namespace presentacion
             controladorDGV(listaFiltrada);
             modificarColumnas();
         }
-=======
->>>>>>> 9282c1c6f9f30489069c25278cf7e47c72e6b17a
+
+        private bool validarFiltro()
+        {
+            if (cbxCampo.SelectedIndex < 0)
+            {
+                MessageBox.Show("Seleccione un campo para filtrar");
+                return true;
+            }
+            if (cbxCriterio.SelectedIndex < 0)
+            {
+                MessageBox.Show("Seleccione un criterio para filtrar");
+                return true;
+            }
+            if (cbxCampo.SelectedItem.ToString() == "Precio")
+            {
+                if (!(soloNumeros(txtFiltroAvanzado.Text)))
+                {
+                    MessageBox.Show("Ingresar solo numeros");
+                    return true;
+                }
+                if (txtFiltroAvanzado.Text == "")
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool soloNumeros(string cadena)
+        {
+            foreach (char caracter in cadena)
+            {
+                if (!(char.IsNumber(caracter)))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void btnFiltrarAvanzado_Click(object sender, EventArgs e)
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+
+            try
+            {
+                if (validarFiltro())
+                {
+                    return;
+                }
+
+                string campo = cbxCampo.SelectedItem.ToString();
+                string criterio = cbxCriterio.SelectedItem.ToString();
+                string filtro = txtFiltroAvanzado.Text;
+
+                listaArticulos = negocio.filtrar(campo, criterio, filtro);
+                dgvArticulos.DataSource = listaArticulos;
+                modificarColumnas();
+                cargarImagen(listaArticulos[0].UrlImagen);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
