@@ -295,5 +295,55 @@ namespace presentacion
                 throw ex;
             }
         }
+
+        private void ordenarDGV(object sender, EventArgs e)
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+
+            try
+            {
+                listaArticulos = negocio.listar();
+                if (rbnMayorPrecio.Checked)
+                {
+                    listaArticulos = listaArticulos.OrderByDescending(x => x.Precio).ToList();
+                    controladorDGV(listaArticulos);
+                    modificarColumnas();
+                }
+                if (rbnMenorPrecio.Checked)
+                {
+                    listaArticulos = listaArticulos.OrderBy(x => x.Precio).ToList();
+                    controladorDGV(listaArticulos);
+                    modificarColumnas();
+                }
+                if (rbnMayorId.Checked)
+                {
+                    listaArticulos = listaArticulos.OrderByDescending(x => x.Id).ToList();
+                    controladorDGV(listaArticulos);
+                    modificarColumnas();
+                }
+                if (rbnMenorId.Checked)
+                {
+                    listaArticulos = listaArticulos.OrderBy(x => x.Id).ToList();
+                    controladorDGV(listaArticulos);
+                    modificarColumnas();
+                }
+                if (rbnMayorCodigo.Checked)
+                {
+                    listaArticulos = listaArticulos.OrderByDescending(x => x.Codigo).ToList();
+                    controladorDGV(listaArticulos);
+                    modificarColumnas();
+                }
+                if (rbnMenorCodigo.Checked)
+                {
+                    listaArticulos = listaArticulos.OrderBy(x => x.Codigo).ToList();
+                    controladorDGV(listaArticulos);
+                    modificarColumnas();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

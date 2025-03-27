@@ -111,7 +111,11 @@ namespace presentacion
             {
                 return true;
             }
-            if(decimal.Parse(precio) < 0)
+            if (!decimal.TryParse(precio, out decimal result))
+            {
+                return true;
+            }
+            if (decimal.Parse(precio) < 0)
             {
                 return true;
             }
@@ -121,11 +125,22 @@ namespace presentacion
 
         private bool soloNumeros(string cadena)
         {
+            int puntosYComas = 0;
+
             foreach (char caracter in cadena)
             {
-                if (!(char.IsNumber(caracter)))
+                if (!(char.IsDigit(caracter) || caracter == '.' || caracter == ','))
                 {
                     return false;
+                }
+
+                if (caracter == '.' || caracter == ',')
+                {
+                    puntosYComas++;
+                    if (puntosYComas > 1)
+                    {
+                        return false;
+                    }
                 }
             }
 
@@ -213,6 +228,11 @@ namespace presentacion
             {
                 pbImagenAlta.Load("https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM=");
             }
+        }
+
+        private void btnAgregarImagen_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
