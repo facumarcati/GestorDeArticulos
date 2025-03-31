@@ -212,11 +212,7 @@ namespace presentacion
                 if (archivo != null && !(txtUrlImagen.Text.ToUpper().Contains("HTTP")))
                 {
                     string destinoDirectorio = ConfigurationManager.AppSettings["articulos-img"];
-                    if (!Directory.Exists(destinoDirectorio))
-                    {
-                        Directory.CreateDirectory(destinoDirectorio);
-                    }
-
+                    
                     string nombreArchivo = Path.GetFileName(archivo.FileName);
                     string destinoPath = Path.Combine(destinoDirectorio, nombreArchivo);
 
@@ -258,6 +254,10 @@ namespace presentacion
                 if (archivo.ShowDialog() == DialogResult.OK)
                 {
                     string destinoDirectorio = ConfigurationManager.AppSettings["articulos-img"];
+                    if (!Directory.Exists(destinoDirectorio))
+                    {
+                        Directory.CreateDirectory(destinoDirectorio);
+                    }
 
                     string nombreArchivo = Path.GetFileName(archivo.FileName);
                     string destinoPath = Path.Combine(destinoDirectorio, nombreArchivo);
