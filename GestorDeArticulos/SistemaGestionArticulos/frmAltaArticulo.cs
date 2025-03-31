@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
+using System.IO;
 using dominio;
 using negocio;
 
@@ -15,6 +17,7 @@ namespace presentacion
     public partial class frmAltaArticulo : Form
     {
         private Articulo articulo = null;
+        private OpenFileDialog archivo = null;
         public frmAltaArticulo()
         {
             InitializeComponent();
@@ -205,6 +208,21 @@ namespace presentacion
                     }
                 }
 
+                //Guardo imagen local
+                if (archivo != null && !(txtUrlImagen.Text.ToUpper().Contains("HTTP")))
+                {
+                    string destinoDirectorio = ConfigurationManager.AppSettings["articulos-img"];
+                    if (!Directory.Exists(destinoDirectorio))
+                    {
+                        Directory.CreateDirectory(destinoDirectorio);
+                    }
+
+                    string nombreArchivo = Path.GetFileName(archivo.FileName);
+                    string destinoPath = Path.Combine(destinoDirectorio, nombreArchivo);
+
+                    File.Copy(archivo.FileName, destinoPath, true);
+                }
+
                 Close();
             }
             catch (Exception ex)
@@ -232,7 +250,29 @@ namespace presentacion
 
         private void btnAgregarImagen_Click(object sender, EventArgs e)
         {
+            archivo = new OpenFileDialog();
+            archivo.Filter = "jpg|*.jpg|png|*.png|jpeg|*.jpeg";
 
+            try
+            {
+                if (archivo.ShowDialog() == DialogResult.OK)
+                {
+                    string destinoDirectorio = ConfigurationManager.AppSettings["articulos-img"];
+
+                    string nombreArchivo = Path.GetFileName(archivo.FileName);
+                    string destinoPath = Path.Combine(destinoDirectorio, nombreArchivo);
+
+                    // Copia la imagen a la carpeta de destino
+                    File.Copy(archivo.FileName, destinoPath, true);
+                    txtUrlImagen.Text = destinoPath;
+
+                    cargarImagen(archivo.FileName);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al copiar la imagen: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
