@@ -95,11 +95,23 @@ namespace presentacion
         private void btnModificar_Click(object sender, EventArgs e)
         {
             Articulo seleccionado;
-            seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
 
-            frmAltaArticulo modificar = new frmAltaArticulo(seleccionado);
-            modificar.ShowDialog();
-            cargar();
+            try
+            {
+                if (dgvArticulos.CurrentRow != null && dgvArticulos.CurrentRow.DataBoundItem is Articulo articulo)
+                {
+                    seleccionado = articulo;
+                    frmAltaArticulo modificar = new frmAltaArticulo(seleccionado);
+                    modificar.ShowDialog();
+                }
+
+                cargar();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No hay articulo para modificar", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
